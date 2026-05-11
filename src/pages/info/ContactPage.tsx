@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
-import { Mail, Phone, MapPin, Send, MessageSquare, Clock } from 'lucide-react';
-import axios from 'axios';
+import { Mail, Phone, MapPin, Send, MessageSquare, Clock, GraduationCap, Eye, IndianRupee, Briefcase } from 'lucide-react';
+import { contactService } from '../../services';
+import toast from 'react-hot-toast';
 
 const ContactPage = () => {
    const [formData, setFormData] = useState({
@@ -30,9 +31,12 @@ const ContactPage = () => {
       setStatus({ loading: true, success: false, error: '' });
 
       try {
-         const response = await axios.post('/api/contact/submit', formData);
+         const response = await contactService.submit(formData);
          if (response.data.success) {
             setStatus({ loading: false, success: true, error: '' });
+            toast.success('Message sent! You and the administrator will receive confirmation emails shortly.', {
+               style: { borderRadius: '20px', background: '#1a237e', color: '#fff', fontWeight: 'bold' }
+            });
             setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
          }
       } catch (err: any) {
@@ -41,8 +45,16 @@ const ContactPage = () => {
             success: false,
             error: err.response?.data?.message || 'Something went wrong. Please try again later.'
          });
+         toast.error(err.response?.data?.message || 'Submission failed. Please check your connection.');
       }
    };
+
+   const quickOptions = [
+      { label: 'Admission Inquiry', text: 'I would like to inquire about the admission process for the upcoming academic year.', icon: GraduationCap, color: 'hover:bg-blue-600' },
+      { label: 'Campus Tour', text: 'I am interested in scheduling a campus tour to see the facilities and interact with faculty.', icon: Eye, color: 'hover:bg-brand-crimson' },
+      { label: 'Fee Structure', text: 'Please provide detailed information regarding the fee structure and payment schedules.', icon: IndianRupee, color: 'hover:bg-emerald-600' },
+      { label: 'Career Query', text: 'I am interested in exploring career opportunities at St. Martins Group of Schools.', icon: Briefcase, color: 'hover:bg-slate-800' }
+   ];
 
    return (
       <div className="min-h-screen bg-white font-sans">
@@ -63,8 +75,8 @@ const ContactPage = () => {
          </section>
 
          {/* Main Content */}
-         <section className="py-24 px-6 max-w-[1400px] mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
+         <section className="py-12 px-6 max-w-[1400px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                
                {/* Contact Information */}
                <div className="space-y-12">
@@ -78,7 +90,7 @@ const ContactPage = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                      {[
                         { icon: Phone, title: 'Call Us', info: '040-44600600', sub: 'Mon-Sat, 8am - 6pm' },
-                        { icon: Mail, title: 'Email Us', info: 'info@srichaitanya.net', sub: '24/7 Support' },
+                        { icon: Mail, title: 'Email Us', info: 'info@stmartinsgroup.com', sub: '24/7 Support' },
                         { icon: MapPin, title: 'Main Office', info: 'Madhapur, Hyderabad', sub: 'Visit us anytime' },
                         { icon: Clock, title: 'Office Hours', info: '8:00 AM - 6:00 PM', sub: 'Standard working hours' }
                      ].map((item, i) => (
@@ -120,7 +132,7 @@ const ContactPage = () => {
                            <Send className="text-white w-8 h-8" />
                         </div>
                         <h4 className="text-xl font-black text-green-800 uppercase italic">Message Sent!</h4>
-                        <p className="text-green-600 font-bold text-sm tracking-wide">Thank you for reaching out. Our team will contact you shortly.</p>
+                        <p className="text-green-600 font-bold text-sm tracking-wide">Thank you for reaching out. We have sent a confirmation copy of your message to your email address.</p>
                         <button 
                            onClick={() => setStatus({ ...status, success: false })}
                            className="text-green-800 font-black text-[10px] uppercase tracking-widest border-b-2 border-green-800"
@@ -184,8 +196,27 @@ const ContactPage = () => {
                            </div>
                         </div>
 
-                        <div className="space-y-2">
-                           <label className="text-[10px] font-black text-brand-navy uppercase tracking-widest ml-4">Your Message</label>
+                        <div className="space-y-3">
+                           <div className="flex justify-between items-center px-4">
+                              <label className="text-[10px] font-black text-brand-navy uppercase tracking-widest">Your Message</label>
+                              <span className="text-[9px] font-bold text-gray-400 uppercase tracking-tight italic">Quick Selection Tags</span>
+                           </div>
+                           
+                           {/* Quick Options */}
+                           <div className="flex flex-wrap gap-2 px-2">
+                              {quickOptions.map((opt, i) => (
+                                 <button
+                                    key={i}
+                                    type="button"
+                                    onClick={() => setFormData({ ...formData, message: opt.text, subject: opt.label.includes('Admission') ? 'Admissions' : opt.label.includes('Fee') ? 'Fee Payment' : 'Other' })}
+                                    className={`flex items-center gap-2 px-4 py-2 bg-slate-50 ${opt.color} hover:text-white rounded-full text-[9px] font-black uppercase tracking-widest border border-slate-100 transition-all active:scale-95 group shadow-sm`}
+                                 >
+                                    <opt.icon className="w-3 h-3 transition-transform group-hover:scale-110" />
+                                    {opt.label}
+                                 </button>
+                              ))}
+                           </div>
+
                            <textarea 
                               name="message"
                               required
@@ -221,3 +252,4 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
+

@@ -1,4 +1,3 @@
-import React from 'react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { Camera } from 'lucide-react';
@@ -19,16 +18,16 @@ const GalleryPage = () => {
       <div className="min-h-screen bg-white font-sans">
          <PublicHeader />
 
-         <section className="bg-brand-navy py-20 px-6 text-center">
+         <section className="bg-brand-navy py-10 px-6 text-center">
             <div className="max-w-[1400px] mx-auto space-y-4">
                <Camera className="w-12 h-12 text-brand-crimson mx-auto mb-6" />
                <h1 className="text-7xl font-black text-white uppercase italic tracking-tighter">Campus <span className="text-brand-crimson">Moments</span></h1>
-               <p className="text-white/40 font-bold uppercase tracking-[0.4em] text-sm">A glimpse into life at Sri Chaitanya</p>
+               <p className="text-white/40 font-bold uppercase tracking-[0.4em] text-sm">A glimpse into life at St. Martins Group of Schools</p>
             </div>
          </section>
 
-         <section className="py-24 px-6 max-w-[1400px] mx-auto">
-            <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+         <section className="py-12 px-6 max-w-[1400px] mx-auto">
+            <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
                {images.map((img, i) => (
                   <div key={i} className="break-inside-avoid relative group rounded-[2.5rem] overflow-hidden shadow-xl hover:shadow-2xl transition-all cursor-zoom-in">
                      <img

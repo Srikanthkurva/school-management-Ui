@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { 
-  Users, GraduationCap, School, TrendingUp, 
+  Users, GraduationCap, TrendingUp, 
   Calendar, CheckCircle2, AlertCircle 
 } from 'lucide-react';
 import { 

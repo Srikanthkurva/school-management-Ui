@@ -55,7 +55,7 @@ const ActivityLogsPage = () => {
                <h1 className="text-3xl font-black text-slate-900 dark:text-white uppercase italic tracking-tighter">
                   Ecosystem <span className="text-indigo-600">Audit Logs</span>
                </h1>
-               <p className="text-slate-500 text-sm font-medium">Monitoring all operational vectors across the Sri Chaitanya platform in real-time.</p>
+               <p className="text-slate-500 text-sm font-medium">Monitoring all operational vectors across the St. Martins Group of Schools platform in real-time.</p>
             </div>
             
             <div className="flex gap-3">

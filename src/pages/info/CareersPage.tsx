@@ -1,4 +1,3 @@
-import React from 'react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { Briefcase, UserPlus, Heart, Sparkles } from 'lucide-react';
@@ -22,13 +21,13 @@ const CareersPage = () => {
             </div>
          </section>
 
-         <section className="py-24 px-6 max-w-[1400px] mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+         <section className="py-12 px-6 max-w-[1400px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                <div className="space-y-12">
                   <div className="space-y-6">
-                     <h2 className="text-4xl font-black text-brand-navy uppercase italic tracking-tighter">Why Sri Chaitanya?</h2>
+                     <h2 className="text-4xl font-black text-brand-navy uppercase italic tracking-tighter">Why St. Martins Group of Schools?</h2>
                      <p className="text-gray-600 text-lg leading-relaxed">
-                        We don't just offer jobs; we build careers. As a member of the Sri Chaitanya family, you'll be part of a revolutionary educational movement that impacts millions of lives.
+                        We don't just offer jobs; we build careers. As a member of the St. Martins family, you'll be part of a revolutionary educational movement that impacts millions of lives.
                      </p>
                   </div>
 

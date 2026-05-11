@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+# School Management UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend for the school management portal built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Local setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Install dependencies:
+   `npm install`
+2. Copy env values if needed:
+   `cp .env.example .env`
+3. Start the dev server:
+   `npm run dev`
 
-## React Compiler
+The local Vite dev server runs on `http://localhost:5173`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Environment variables
 
-## Expanding the ESLint configuration
+Create a `.env` file for local development or configure the same values in Vercel:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_API_BASE_URL=https://your-backend-domain.com/api
+VITE_APP_NAME=SchoolSaaS Platform
+VITE_APP_VERSION=1.0.0
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+For local development you can keep:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_API_BASE_URL=http://localhost:5000/api
 ```
+
+## Vercel deployment
+
+This project is ready for Vercel:
+
+- `vercel.json` adds SPA rewrites so routes like `/login` and `/admin/dashboard` load correctly.
+- The frontend expects `VITE_API_BASE_URL` to point to the deployed backend API.
+
+### Steps
+
+1. Push `school-management-Ui` to GitHub.
+2. Import the project into Vercel.
+3. Set the Root Directory to `school-management-Ui` if you import the full monorepo/workspace.
+4. Keep the default framework preset as `Vite`.
+5. Add this environment variable in Vercel:
+   `VITE_API_BASE_URL=https://your-backend-domain.com/api`
+6. Deploy.
+
+## Backend note
+
+If your backend uses CORS, make sure its `FRONTEND_URL` includes your Vercel frontend domain, for example:
+
+```env
+FRONTEND_URL=https://your-project-name.vercel.app
+```
+
+Otherwise login and API calls may be blocked by CORS after deployment.

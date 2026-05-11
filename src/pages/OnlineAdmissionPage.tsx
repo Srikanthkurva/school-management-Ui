@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, ChevronDown, User, BookOpen } from 'lucide-react';
+import { ArrowLeft, CheckCircle, ChevronDown } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { admissionService } from '../services';
 
@@ -9,7 +9,7 @@ const OnlineAdmissionPage = () => {
    const [submitted, setSubmitted] = useState(false);
    const [loading, setLoading] = useState(false);
    const [applicationId, setApplicationId] = useState('');
-   
+
    const [formData, setFormData] = useState({
       academicYear: '2026-2027',
       board: '',
@@ -72,7 +72,7 @@ const OnlineAdmissionPage = () => {
                <div className="space-y-4">
                   <h2 className="text-3xl font-black text-brand-navy uppercase tracking-tighter italic">Admission Confirmed!</h2>
                   <p className="text-slate-500 font-medium text-sm leading-relaxed">
-                     Congratulations! Your online admission has been successfully processed. 
+                     Congratulations! Your online admission has been successfully processed.
                      Please note your Admission Number for future reference:
                   </p>
                   <div className="bg-brand-navy/5 border-2 border-dashed border-brand-navy/20 p-6 rounded-2xl">
@@ -91,14 +91,13 @@ const OnlineAdmissionPage = () => {
 
    const inputClasses = "w-full bg-slate-50 border-b-2 border-slate-100 px-5 py-3.5 text-sm font-bold text-slate-700 outline-none focus:border-brand-crimson focus:bg-white transition-all duration-300 placeholder:text-slate-300 rounded-t-lg";
    const labelClasses = "block text-[10px] font-black text-brand-navy/40 uppercase tracking-[0.2em] mb-1 px-1";
-   const sectionTitleClasses = "text-xl font-black text-brand-navy tracking-tight uppercase italic flex items-center gap-3";
 
    return (
-      <div className="min-h-screen bg-[#FDFDFD] noise-bg font-sans pb-32">
+      <div className="min-h-screen bg-[#FDFDFD] noise-bg font-sans pb-12">
          {/* Navigation */}
          <nav className="fixed top-0 inset-x-0 z-[60] py-6 px-10 flex justify-between items-center pointer-events-none">
-            <button 
-               onClick={() => navigate('/')} 
+            <button
+               onClick={() => navigate('/')}
                className="p-3 bg-white shadow-xl rounded-full text-brand-navy hover:text-brand-crimson transition-all pointer-events-auto border border-gray-100 group"
             >
                <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
@@ -108,9 +107,9 @@ const OnlineAdmissionPage = () => {
          {/* Hero Header */}
          <div className="relative h-[250px] md:h-[350px] overflow-hidden flex items-center justify-center bg-brand-navy">
             <div className="absolute inset-0">
-               <img 
-                  src="https://images.unsplash.com/photo-1523050335392-93851179ae2c?auto=format&fit=crop&q=80&w=1920" 
-                  className="w-full h-full object-cover opacity-30 mix-blend-overlay scale-110" 
+               <img
+                  src="https://images.unsplash.com/photo-1523050335392-93851179ae2c?auto=format&fit=crop&q=80&w=1920"
+                  className="w-full h-full object-cover opacity-30 mix-blend-overlay scale-110"
                   alt="Online Admission"
                />
                <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/0 to-brand-navy/60" />
@@ -126,7 +125,7 @@ const OnlineAdmissionPage = () => {
          </div>
 
          {/* Form Body */}
-         <div className="max-w-6xl mx-auto px-6 -mt-16 relative z-10 pb-32">
+         <div className="max-w-6xl mx-auto px-6 -mt-16 relative z-10 pb-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                {/* Left Info / Steps */}
                <aside className="p-8 rounded-2xl bg-gradient-to-b from-white to-indigo-50 border border-slate-100 shadow-sm">
@@ -195,24 +194,30 @@ const OnlineAdmissionPage = () => {
                                  { value: 'Gachibowli', label: 'Gachibowli Campus' },
                               ],
                               className: [
-                                 { group: 'Pre-Primary', options: [
-                                    { value: 'Nursery', label: 'NURSERY' },
-                                    { value: 'UKG', label: 'UKG' },
-                                    { value: 'LKG', label: 'LKG' },
-                                 ]},
-                                 { group: 'Primary', options: [
-                                    { value: '1', label: '1st Class' },
-                                    { value: '2', label: '2nd Class' },
-                                    { value: '3', label: '3rd Class' },
-                                    { value: '4', label: '4th Class' },
-                                    { value: '5', label: '5th Class' },
-                                 ]},
-                                 { group: 'Secondary', options: [
-                                    { value: '6', label: '6th Class' },
-                                    { value: '7', label: '7th Class' },
-                                    { value: '8', label: '8th Class' },
-                                    { value: '9', label: '9th Class' },
-                                 ]},
+                                 {
+                                    group: 'Pre-Primary', options: [
+                                       { value: 'Nursery', label: 'NURSERY' },
+                                       { value: 'UKG', label: 'UKG' },
+                                       { value: 'LKG', label: 'LKG' },
+                                    ]
+                                 },
+                                 {
+                                    group: 'Primary', options: [
+                                       { value: '1', label: '1st Class' },
+                                       { value: '2', label: '2nd Class' },
+                                       { value: '3', label: '3rd Class' },
+                                       { value: '4', label: '4th Class' },
+                                       { value: '5', label: '5th Class' },
+                                    ]
+                                 },
+                                 {
+                                    group: 'Secondary', options: [
+                                       { value: '6', label: '6th Class' },
+                                       { value: '7', label: '7th Class' },
+                                       { value: '8', label: '8th Class' },
+                                       { value: '9', label: '9th Class' },
+                                    ]
+                                 },
                               ],
                               orientation: [
                                  { value: 'Morning', label: 'Morning' },
@@ -271,12 +276,12 @@ const OnlineAdmissionPage = () => {
                         <div className="space-y-1">
                            <label className={labelClasses}>Gender*</label>
                            <div className="flex gap-6 items-center h-full px-5 py-3.5 mt-1 border-b-2 border-slate-100 bg-slate-50 rounded-t-lg">
-                               <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
-                                  <input type="radio" name="gender" value="Female" onChange={handleChange} checked={formData.gender === 'Female'} className="accent-brand-crimson w-4 h-4 cursor-pointer" /> Female
-                               </label>
-                               <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
-                                  <input type="radio" name="gender" value="Male" onChange={handleChange} checked={formData.gender === 'Male'} className="accent-brand-crimson w-4 h-4 cursor-pointer" /> Male
-                               </label>
+                              <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                                 <input type="radio" name="gender" value="Female" onChange={handleChange} checked={formData.gender === 'Female'} className="accent-brand-crimson w-4 h-4 cursor-pointer" /> Female
+                              </label>
+                              <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                                 <input type="radio" name="gender" value="Male" onChange={handleChange} checked={formData.gender === 'Male'} className="accent-brand-crimson w-4 h-4 cursor-pointer" /> Male
+                              </label>
                            </div>
                         </div>
                      </div>

@@ -24,7 +24,7 @@ const PublicHeader = () => {
    return (
       <>
          {/* 1. COMPACT NAVY HEADER */}
-         <header className="bg-brand-navy py-4 px-6 sticky top-0 z-[60] shadow-2xl">
+         <header className="bg-brand-navy py-2 px-6 sticky top-0 z-[60] shadow-2xl">
             <div className="max-w-[1400px] mx-auto flex justify-between items-center">
                <div 
                   onClick={() => navigate('/')}
@@ -34,8 +34,8 @@ const PublicHeader = () => {
                      <GraduationCap className="w-8 h-8 text-brand-navy" strokeWidth={2.5} />
                   </div>
                   <div className="flex flex-col">
-                     <h1 className="text-white text-2xl md:text-3xl font-black tracking-tighter leading-none uppercase">SRI CHAITANYA</h1>
-                     <span className="text-white text-[10px] tracking-[.4em] font-bold opacity-70 uppercase">SCHOOLS</span>
+                     <h1 className="text-white text-2xl md:text-3xl font-black tracking-tighter leading-none uppercase">St. Martins</h1>
+                     <span className="text-white text-[10px] tracking-[.4em] font-bold opacity-70 uppercase">GROUP OF SCHOOLS</span>
                   </div>
                </div>
 
@@ -45,6 +45,9 @@ const PublicHeader = () => {
                   </Link>
                   <Link to="/online-admission" className="text-white border border-white/40 px-5 py-2.5 rounded-full text-[11px] font-black uppercase tracking-wider hover:bg-white hover:text-brand-navy transition-all text-center">
                      Online Admissions
+                  </Link>
+                  <Link to="/teacher-registration" className="text-white border border-white/40 px-5 py-2.5 rounded-full text-[11px] font-black uppercase tracking-wider hover:bg-white hover:text-brand-navy transition-all text-center">
+                     Teacher Registration
                   </Link>
                   <Link to="/contact" className="text-white text-[11px] font-black uppercase tracking-widest px-4 hover:text-brand-crimson transition-colors">
                      Contact
@@ -88,7 +91,7 @@ const PublicHeader = () => {
                         <Link 
                            key={item.path} 
                            to={item.path} 
-                           className="text-white px-2 xl:px-4 py-4 text-[10px] xl:text-[11px] font-black uppercase tracking-widest hover:bg-black/10 transition-all border-b-2 border-transparent hover:border-white whitespace-nowrap opacity-90 hover:opacity-100 italic"
+                           className="text-white px-2 xl:px-4 py-2 text-[10px] xl:text-[11px] font-black uppercase tracking-widest hover:bg-black/10 transition-all border-b-2 border-transparent hover:border-white whitespace-nowrap opacity-90 hover:opacity-100 italic"
                         >
                            {item.label}
                         </Link>

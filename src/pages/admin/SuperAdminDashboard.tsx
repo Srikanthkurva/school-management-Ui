@@ -62,10 +62,10 @@ const SuperAdminDashboard = () => {
   }
 
   return (
-    <div className="p-4 md:p-8 space-y-8 bg-[#F8FAFC] dark:bg-slate-950 min-h-screen animate-in fade-in duration-700">
+    <div className="p-4 md:p-6 space-y-6 bg-[#F8FAFC] dark:bg-slate-950 min-h-screen animate-in fade-in duration-700">
       
       {/* SUPER HEADER */}
-      <div className="bg-white dark:bg-slate-900 px-8 py-10 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden group">
+      <div className="bg-white dark:bg-slate-900 px-8 py-6 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-sm relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-crimson/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-navy/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
         
@@ -79,7 +79,7 @@ const SuperAdminDashboard = () => {
                 Governance <span className="text-brand-crimson">Control Center</span>
              </h1>
              <p className="text-slate-500 font-medium max-w-xl">
-                Comprehensive monitoring and management of Sri Chaitanya Educational Ecosystem. Centralized tracking for teachers, students, and operational metrics.
+                Comprehensive monitoring and management of St. Martins Group of Schools Educational Ecosystem. Centralized tracking for teachers, students, and operational metrics.
              </p>
           </div>
           
@@ -150,7 +150,7 @@ const SuperAdminDashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* GROWTH & ANALYTICS */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6">
           <Card title="System-wide Growth Insights" subtitle="Predictive enrollment and staff scaling metrics">
              <div className="h-[400px] w-full mt-8">
                 <ResponsiveContainer width="100%" height="100%">
@@ -233,7 +233,7 @@ const SuperAdminDashboard = () => {
         </div>
 
         {/* ECOSYSTEM LOGS & LIVE FEED */}
-        <div className="space-y-8">
+        <div className="space-y-6">
           <Card title="Real-time Activity" subtitle="Global system interaction feed">
              <div className="space-y-6 mt-6">
                 {logs.map((log, i) => (
@@ -260,7 +260,10 @@ const SuperAdminDashboard = () => {
                    </div>
                 ))}
              </div>
-             <button className="w-full mt-6 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] hover:bg-brand-crimson transition-all shadow-xl shadow-slate-900/10">
+             <button 
+                onClick={() => navigate('/admin/logs')}
+                className="w-full mt-6 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] hover:bg-brand-crimson transition-all shadow-xl shadow-slate-900/10"
+             >
                 Access Audit Logs
              </button>
           </Card>
@@ -290,7 +293,7 @@ const SuperAdminDashboard = () => {
       <div className="flex justify-between items-center px-4 pt-4 border-t border-slate-100">
          <div className="flex items-center gap-4">
             <Globe className="w-4 h-4 text-slate-400" />
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Sri Chaitanya Global Network Hub</p>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">St. Martins Group of Schools Global Network Hub</p>
          </div>
          <p className="text-[9px] font-black text-slate-300 uppercase tracking-[0.5em]">Central Command v5.0.01-ALPHA</p>
       </div>

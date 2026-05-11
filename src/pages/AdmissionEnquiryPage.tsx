@@ -99,7 +99,7 @@ const AdmissionEnquiryPage = () => {
          </div>
 
          {/* Form Section */}
-         <div className="max-w-6xl mx-auto px-6 -mt-20 relative z-10 pb-32">
+         <div className="max-w-6xl mx-auto px-6 -mt-20 relative z-10 pb-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                {/* Info Panel */}
                <aside className="hidden lg:block p-8 rounded-2xl bg-gradient-to-b from-white to-indigo-50 border border-slate-100 shadow-sm">

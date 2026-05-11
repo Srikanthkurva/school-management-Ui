@@ -17,7 +17,7 @@ const slides = [
       image: '/hero_2.png',
       badge: 'EMPOWERING LEADERS',
       title: <>NURTURING <br /><span className="text-white/40">FUTURE</span> <br /><span className="text-yellow-400">VISIONARIES</span></>,
-      btnText: 'Explore More',
+      btnText: 'Join Us',
       color: 'from-brand-navy'
    },
    {
@@ -46,7 +46,7 @@ const HomePage = () => {
    const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
 
    const tabContent = {
-      who: "The world today is a global village and people are its citizens. As boundaries of location, people and time cease to exist, it is of utmost importance that we move with the times. At Sri Chaitanya, we have created a unique blend of world-class curricula, contemporary teaching methodologies, and equal focus on intellectual, physical and personality development, resulting future leaders who are ready to take on the world. Today, we stand as the force behind creating countless world-class doctors, engineers, IAS officers, chartered accountants, and so much more..",
+      who: "The world today is a global village and people are its citizens. As boundaries of location, people and time cease to exist, it is of utmost importance that we move with the times. At St. Martins Group of Schools, we have created a unique blend of world-class curricula, contemporary teaching methodologies, and equal focus on intellectual, physical and personality development, resulting future leaders who are ready to take on the world. Today, we stand as the force behind creating countless world-class doctors, engineers, IAS officers, chartered accountants, and so much more..",
       mission: "To provide quality education that is both globally relevant and deeply rooted in our values, ensuring that every student reaches their full potential through innovative teaching and holistic development.",
       management: "Our leadership is committed to academic excellence and nurturing the next generation of global citizens. With decades of experience, we provide a stable and visionary environment for growth."
    };
@@ -118,8 +118,8 @@ const HomePage = () => {
          </section>
 
          {/* 4. WHO WE ARE SECTION */}
-         <section className="py-24 px-6 max-w-[1400px] mx-auto relative bg-white">
-            <div className="flex flex-col lg:flex-row gap-20">
+         <section className="py-12 px-6 max-w-[1400px] mx-auto relative bg-white">
+            <div className="flex flex-col lg:flex-row gap-10">
                <div className="flex-1 space-y-12">
                   <div className="flex shadow-lg bg-white rounded-lg overflow-hidden border border-gray-100">
                      {[
@@ -182,8 +182,8 @@ const HomePage = () => {
          </section>
 
          {/* 5. ACHIEVEMENTS SECTION */}
-         <section className="py-24 px-6 bg-gray-50 border-y border-gray-100">
-            <div className="max-w-[1400px] mx-auto space-y-16 text-center">
+         <section className="py-12 px-6 bg-gray-50 border-y border-gray-100">
+            <div className="max-w-[1400px] mx-auto space-y-10 text-center">
                <h2 className="text-5xl font-black text-brand-navy uppercase italic tracking-tighter decoration-brand-crimson decoration-8 underline underline-offset-8">Our Achievements</h2>
                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                   {[
@@ -204,7 +204,7 @@ const HomePage = () => {
          </section>
 
          {/* 6. NEWS SECTION */}
-         <section className="py-24 px-6 max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
+         <section className="py-12 px-6 max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div className="space-y-12">
                <h2 className="text-4xl font-black text-brand-navy uppercase italic tracking-tighter border-l-8 border-brand-crimson pl-6">News & Events</h2>
                <div className="space-y-6">
@@ -229,7 +229,7 @@ const HomePage = () => {
          </section>
 
          {/* 7. STATISTICS SECTION */}
-         <section className="relative py-16 overflow-hidden">
+         <section className="relative py-10 overflow-hidden">
             <div className="absolute inset-0 z-0">
                <img
                   src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=1920"
@@ -240,7 +240,7 @@ const HomePage = () => {
             </div>
 
             <div className="relative z-10 max-w-[1200px] mx-auto px-6 text-center">
-               <h3 className="text-white text-sm font-bold uppercase tracking-[0.4em] mb-3 opacity-60 italic">Sri Chaitanya Schools</h3>
+               <h3 className="text-white text-sm font-bold uppercase tracking-[0.4em] mb-3 opacity-60 italic">St. Martins Group of Schools</h3>
                <div className="w-16 h-[1px] bg-white/20 mx-auto mb-10" />
 
                <div className="flex flex-wrap items-center justify-center gap-y-8">
@@ -268,13 +268,13 @@ const HomePage = () => {
          </section>
 
          {/* 8. ADMISSIONS OPEN SECTION */}
-         <section className="bg-brand-navy py-12 text-center relative overflow-hidden mb-8">
+         <section className="bg-brand-navy py-10 text-center relative overflow-hidden mb-6">
             <div className="absolute inset-0 opacity-10">
                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
             </div>
 
             <div className="relative z-10 space-y-2">
-               <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.5em] italic">Sri Chaitanya Schools</p>
+               <p className="text-white/40 text-[10px] font-bold uppercase tracking-[0.5em] italic">St. Martins Group of Schools</p>
                <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-none pt-2">Admissions Open</h2>
                <p className="text-2xl md:text-3xl font-black text-brand-crimson uppercase italic tracking-tighter pb-4">2026-2027</p>
                <div>
