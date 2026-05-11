@@ -109,7 +109,7 @@ const TeacherNoticesPage = () => {
                     </span>
                   </div>
                   <p className="mt-2 text-sm leading-6 text-slate-500">{notice.message}</p>
-                  {'createdAt' in notice && notice.createdAt ? (
+                  {'createdAt' in notice && typeof notice.createdAt === 'string' && notice.createdAt ? (
                     <p className="mt-3 text-[10px] font-black uppercase tracking-[0.25em] text-slate-400">{new Date(notice.createdAt).toLocaleString()}</p>
                   ) : null}
                 </div>

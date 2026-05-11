@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { 
   Shield, ShieldCheck, Lock, Unlock, 
   Users, GraduationCap, Save,
@@ -10,12 +11,19 @@ import { adminService } from '../../services';
 import type { Permission } from '../../types';
 import toast from 'react-hot-toast';
 
+type PermissionRole = keyof Permission;
+
 const PermissionsPage = () => {
   const [permissions, setPermissions] = useState<Permission | null>(null);
-  const [selectedRole, setSelectedRole] = useState<string>('admin');
+  const [selectedRole, setSelectedRole] = useState<PermissionRole>('admin');
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [searchPerm, setSearchPerm] = useState('');
+  const roleOptions: Array<{ id: PermissionRole; label: string; icon: ReactNode }> = [
+    { id: 'admin', label: 'Super Admin', icon: <Shield className="w-4 h-4" /> },
+    { id: 'teacher', label: 'Faculty Block', icon: <GraduationCap className="w-4 h-4" /> },
+    { id: 'student', label: 'Student Union', icon: <Users className="w-4 h-4" /> },
+  ];
 
   // Define potential permissions for the school ecosystem
   const ALL_POSSIBLE_PERMS = [
@@ -132,11 +140,7 @@ const PermissionsPage = () => {
          <div className="lg:col-span-1 space-y-6">
             <Card title="Operational Roles" subtitle="Select role to modify access">
                <div className="space-y-3 mt-6">
-                  {[
-                     { id: 'admin', label: 'Super Admin', icon: <Shield className="w-4 h-4" /> },
-                     { id: 'teacher', label: 'Faculty Block', icon: <GraduationCap className="w-4 h-4" /> },
-                     { id: 'student', label: 'Student Union', icon: <Users className="w-4 h-4" /> }
-                  ].map((role) => (
+                  {roleOptions.map((role) => (
                      <button
                         key={role.id}
                         onClick={() => setSelectedRole(role.id)}

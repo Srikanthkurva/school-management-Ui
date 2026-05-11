@@ -17,7 +17,8 @@ const navItems: Record<Role, { label: string; icon: any; path: string; permissio
     { label: 'Assignments', icon: Book, path: '/admin/assignments', permission: 'view_assignments' },
     { label: 'Results', icon: BarChart2, path: '/admin/results', permission: 'view_results' },
     { label: 'Enquiries', icon: FileText, path: '/admin/enquiries' },
-      { label: 'Admissions Requests', icon: FileText, path: '/admin/admissions-requests' },
+    { label: 'Admissions Requests', icon: FileText, path: '/admin/admissions-requests' },
+    { label: 'Teacher Requests', icon: Users, path: '/admin/teacher-requests' },
     { label: 'Permissions', icon: Settings, path: '/admin/permissions', permission: 'manage_permissions' },
     { label: 'Activity Logs', icon: Activity, path: '/admin/logs', permission: 'view_activity_logs' },
   ],
@@ -73,7 +74,7 @@ const Sidebar = () => {
       style={{ width: sidebarOpen ? '260px' : '72px' }}
     >
       {/* Logo */}
-      <div className="flex items-center justify-between px-4 py-5 border-b border-gray-800">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center flex-shrink-0">
             <School className="w-5 h-5 text-white" />
@@ -95,7 +96,7 @@ const Sidebar = () => {
 
       {/* Role Badge */}
       {sidebarOpen && (
-        <div className="px-4 py-6">
+        <div className="px-4 py-3">
           <div className="bg-[#8B5CF6] px-5 py-2 rounded-full inline-flex items-center justify-center shadow-[0_4px_12px_rgba(139,92,246,0.3)] border border-white/10">
              <span className="text-xs font-black text-white uppercase tracking-tighter">
                 {roleLabels[role]}

@@ -1,4 +1,3 @@
-import React from 'react';
 import PublicHeader from '../../components/layout/PublicHeader';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { Shield, Check } from 'lucide-react';
@@ -17,13 +16,13 @@ const UniformsPage = () => {
             <div className="absolute inset-0 bg-brand-navy mix-blend-multiply" />
             <div className="relative z-10 max-w-[1400px] mx-auto px-6 w-full text-white text-center">
                <h1 className="text-8xl font-black uppercase italic tracking-tighter">Identity & <br /><span className="text-brand-crimson">Pride</span></h1>
-               <p className="text-xl font-black uppercase tracking-[0.3em] mt-4 italic opacity-70">The Sri Chaitanya Uniform Guidelines</p>
+               <p className="text-xl font-black uppercase tracking-[0.3em] mt-4 italic opacity-70">The St. Martins Group of Schools Uniform Guidelines</p>
             </div>
          </section>
 
-         <section className="py-24 px-6 max-w-[1400px] mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-               <div className="space-y-12 flex flex-col justify-center">
+         <section className="py-12 px-6 max-w-[1400px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+               <div className="space-y-6 flex flex-col justify-center">
                   <div className="space-y-6">
                      <h2 className="text-5xl font-black text-brand-navy uppercase italic tracking-tighter">Wearing Our <br /><span className="text-brand-crimson text-4xl">Values</span></h2>
                      <p className="text-[#555] text-lg font-medium leading-relaxed">
@@ -48,7 +47,7 @@ const UniformsPage = () => {
                   </div>
                </div>
 
-               <div className="bg-slate-50 p-16 rounded-[4rem] border border-gray-100 flex items-center justify-center relative overflow-hidden group">
+               <div className="bg-slate-50 p-10 rounded-[4rem] border border-gray-100 flex items-center justify-center relative overflow-hidden group">
                   <div className="absolute inset-0 opacity-5 group-hover:scale-110 transition-transform duration-1000">
                      <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover" alt="Fabric" />
                   </div>

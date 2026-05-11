@@ -1,19 +1,13 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Bell, Search, Sun, Moon, Menu } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { useUIStore } from '../../store/uiStore';
 
 const Topbar = () => {
-  const { user, logout } = useAuthStore();
+  const { user } = useAuthStore();
   const { darkMode, toggleDarkMode, toggleSidebar } = useUIStore();
   const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
 
   const role = user?.role ?? 'student';
   const roleGradients: Record<string, string> = {
@@ -23,7 +17,7 @@ const Topbar = () => {
   };
 
   return (
-    <header className="h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6 sticky top-0 z-40 shadow-sm">
+    <header className="h-12 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6 sticky top-0 z-40 shadow-sm">
       {/* Left */}
       <div className="flex items-center gap-4">
         <button

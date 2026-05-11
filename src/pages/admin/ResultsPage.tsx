@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { 
-  BarChart2, Search, TrendingUp, 
-  Award, Target, GraduationCap,
+  TrendingUp, 
+  Award, Target,
   Download, ArrowUpRight
 } from 'lucide-react';
 import { 
@@ -119,7 +119,7 @@ const ResultsPage = () => {
                         nameKey="grade"
                         stroke="none"
                      >
-                        {data.gradeDistribution.map((entry, index) => (
+                        {data.gradeDistribution.map((_, index) => (
                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                      </Pie>

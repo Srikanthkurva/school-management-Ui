@@ -21,6 +21,7 @@ import GalleryPage from '../pages/info/GalleryPage';
 import AchievementsPage from '../pages/info/AchievementsPage';
 import CareersPage from '../pages/info/CareersPage';
 import ContactPage from '../pages/info/ContactPage';
+import TeacherRegistrationPage from '../pages/info/TeacherRegistrationPage';
 
 // Layouts
 import DashboardLayout from '../layouts/DashboardLayout';
@@ -36,6 +37,7 @@ import PermissionsPage from '../pages/admin/PermissionsPage';
 import ActivityLogsPage from '../pages/admin/ActivityLogsPage';
 import EnquiriesPage from '../pages/admin/EnquiriesPage';
 import RequestAdmissionsPage from '../pages/admin/RequestAdmissionsPage';
+import TeacherRequestPage from '../pages/admin/TeacherRequestPage';
 
 // Teacher Pages
 import TeacherDashboard from '../pages/teacher/TeacherDashboard';
@@ -82,6 +84,7 @@ const AppRoutes = () => {
       <Route path="/achievements" element={<AchievementsPage />} />
       <Route path="/careers" element={<CareersPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/teacher-registration" element={<TeacherRegistrationPage />} />
       <Route
         path="/login"
         element={
@@ -112,6 +115,7 @@ const AppRoutes = () => {
           <Route path="/admin/logs" element={<ActivityLogsPage />} />
           <Route path="/admin/enquiries" element={<EnquiriesPage />} />
           <Route path="/admin/admissions-requests" element={<RequestAdmissionsPage />} />
+          <Route path="/admin/teacher-requests" element={<TeacherRequestPage />} />
           <Route path="/admin/profile" element={<ProfilePage />} />
         </Route>
       </Route>

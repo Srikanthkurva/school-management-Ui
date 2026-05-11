@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
-import { X, User, MapPin, Calendar, Tag, FilePlus, Check, Search } from 'lucide-react';
+import { X, User, MapPin, Calendar, Tag, FilePlus, Search } from 'lucide-react';
 import { enquiryService } from '../../services';
 
-const OpenInReview = ({ selected, setShowModal }: { selected: any; setShowModal: (v: boolean) => void }) => {
+const OpenInReview = ({ setShowModal }: { setShowModal: (v: boolean) => void }) => {
   const navigate = useNavigate();
   return (
     <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center" onClick={() => { setShowModal(false); navigate('/admin/admissions-requests'); }}>
@@ -70,14 +69,14 @@ const EnquiriesPage = () => {
             <table className="w-full min-w-[900px] table-auto">
               <thead>
                 <tr className="bg-slate-50">
-                  <th className="px-4 py-3 text-left text-xs font-black uppercase text-slate-400">Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-black uppercase text-slate-400">Child</th>
-                  <th className="px-4 py-3 text-left text-xs font-black uppercase text-slate-400">Grade</th>
-                  <th className="px-4 py-3 text-left text-xs font-black uppercase text-slate-400">Parent</th>
-                  <th className="px-4 py-3 text-left text-xs font-black uppercase text-slate-400">Contact</th>
-                  <th className="px-4 py-3 text-left text-xs font-black uppercase text-slate-400">Campus</th>
-                  <th className="px-4 py-3 text-left text-xs font-black uppercase text-slate-400">Status</th>
-                  <th className="px-4 py-3 text-right text-xs font-black uppercase text-slate-400">Actions</th>
+                  <th className="px-3 py-1.5 text-left text-xs font-black uppercase text-slate-400">Date</th>
+                  <th className="px-3 py-1.5 text-left text-xs font-black uppercase text-slate-400">Child</th>
+                  <th className="px-3 py-1.5 text-left text-xs font-black uppercase text-slate-400">Grade</th>
+                  <th className="px-3 py-1.5 text-left text-xs font-black uppercase text-slate-400">Parent</th>
+                  <th className="px-3 py-1.5 text-left text-xs font-black uppercase text-slate-400">Contact</th>
+                  <th className="px-3 py-1.5 text-left text-xs font-black uppercase text-slate-400">Campus</th>
+                  <th className="px-3 py-1.5 text-left text-xs font-black uppercase text-slate-400">Status</th>
+                  <th className="px-3 py-1.5 text-right text-xs font-black uppercase text-slate-400">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -195,7 +194,7 @@ const EnquiriesPage = () => {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <OpenInReview selected={selected} setShowModal={setShowModal} />
+                  <OpenInReview setShowModal={setShowModal} />
                 </div>
               </aside>
             </div>

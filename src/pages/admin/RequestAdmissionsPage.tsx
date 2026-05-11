@@ -3,12 +3,15 @@ import { FileText, User, Users, GraduationCap, MapPin, Phone, Calendar, Hash } f
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import { admissionService } from '../../services';
+import toast from 'react-hot-toast';
 
 const RequestAdmissionsPage = () => {
   const [requests, setRequests] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [showCredentialsModal, setShowCredentialsModal] = useState(false);
+  const [credentials, setCredentials] = useState<any | null>(null);
   const [actionLoading, setActionLoading] = useState(false);
   const [reason, setReason] = useState('');
 
@@ -40,11 +43,25 @@ const RequestAdmissionsPage = () => {
     if (!selected) return;
     setActionLoading(true);
     try {
-      await admissionService.approve(selected.id);
+      const res = await admissionService.approve(selected.id);
+      toast.success(res.data.message || 'Admission approved successfully');
+      
+      // Display credentials if available
+      if (res.data.data?.email && res.data.data?.tempPassword) {
+        setCredentials({
+          email: res.data.data.email,
+          password: res.data.data.tempPassword,
+          admissionNo: res.data.data.admissionNo,
+          sharedEmailConflict: Boolean(res.data.data.sharedEmailConflict),
+        });
+        setShowCredentialsModal(true);
+      }
+      
       await fetchPending();
       setShowModal(false);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Approve failed', err);
+      toast.error(err.response?.data?.message || 'Approval failed');
     } finally {
       setActionLoading(false);
     }
@@ -54,11 +71,13 @@ const RequestAdmissionsPage = () => {
     if (!selected) return;
     setActionLoading(true);
     try {
-      await admissionService.reject(selected.id, { reason });
+      const res = await admissionService.reject(selected.id, { reason });
+      toast.success(res.data.message || 'Application rejected');
       await fetchPending();
       setShowModal(false);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Reject failed', err);
+      toast.error(err.response?.data?.message || 'Rejection failed');
     } finally {
       setActionLoading(false);
     }
@@ -89,13 +108,13 @@ const RequestAdmissionsPage = () => {
           <table className="w-full text-left">
             <thead className="bg-slate-50">
               <tr>
-                <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400">Date</th>
-                <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400">Child Name</th>
-                <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400">Grade & Setup</th>
-                <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400">Parent</th>
-                <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400">Contact</th>
-                <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400">Campus</th>
-                <th className="px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-400 text-right">Actions</th>
+                <th className="px-4 py-2 text-xs font-black uppercase tracking-widest text-slate-400">Date</th>
+                <th className="px-4 py-2 text-xs font-black uppercase tracking-widest text-slate-400">Child Name</th>
+                <th className="px-4 py-2 text-xs font-black uppercase tracking-widest text-slate-400">Grade & Setup</th>
+                <th className="px-4 py-2 text-xs font-black uppercase tracking-widest text-slate-400">Parent</th>
+                <th className="px-4 py-2 text-xs font-black uppercase tracking-widest text-slate-400">Contact</th>
+                <th className="px-4 py-2 text-xs font-black uppercase tracking-widest text-slate-400">Campus</th>
+                <th className="px-4 py-2 text-xs font-black uppercase tracking-widest text-slate-400 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -107,19 +126,19 @@ const RequestAdmissionsPage = () => {
 
                 return (
                   <tr key={q.id} className="border-t border-slate-100 hover:bg-slate-50 transition-colors cursor-pointer" onClick={() => openActions(q)}>
-                    <td className="px-6 py-4 text-sm font-medium text-slate-600">{new Date(q.created_at).toLocaleDateString()}</td>
-                    <td className="px-6 py-4 text-sm font-black text-brand-navy">{childName}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-2 text-sm font-medium text-slate-600">{new Date(q.created_at).toLocaleDateString()}</td>
+                    <td className="px-4 py-2 text-sm font-black text-brand-navy">{childName}</td>
+                    <td className="px-4 py-2">
                       <div className="text-sm font-bold text-slate-700">Class {q.class_name}</div>
                       <div className="text-xs font-medium text-slate-400">{q.student_type} • {q.board}</div>
                     </td>
-                    <td className="px-6 py-4 text-sm font-medium text-slate-700">{parentName}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-2 text-sm font-medium text-slate-700">{parentName}</td>
+                    <td className="px-4 py-2">
                       <div className="text-sm font-medium text-slate-700">{q.parent_mobile}</div>
                       <div className="text-xs font-medium text-slate-400">{q.parent_email}</div>
                     </td>
-                    <td className="px-6 py-4 text-sm font-medium text-slate-600">{q.school}</td>
-                    <td className="px-6 py-4 text-right">
+                    <td className="px-4 py-2 text-sm font-medium text-slate-600">{q.school}</td>
+                    <td className="px-4 py-2 text-right">
                       <Button variant="secondary" className="px-4 py-2 text-xs font-bold text-brand-navy shadow-sm bg-white" onClick={(e) => { e.stopPropagation(); openActions(q); }}>REVIEW</Button>
                     </td>
                   </tr>
@@ -250,6 +269,87 @@ const RequestAdmissionsPage = () => {
                 </div>
               </div>
 
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Credentials Display Modal */}
+      {showCredentialsModal && credentials && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="w-full max-w-md rounded-3xl bg-white shadow-2xl animate-in zoom-in-95 duration-300">
+            
+            <div className="sticky top-0 bg-white/90 backdrop-blur-md z-10 border-b border-slate-100 px-8 py-6 flex justify-between items-center">
+              <div>
+                <h3 className="text-2xl font-black italic uppercase text-brand-navy tracking-tight">Login Credentials</h3>
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mt-1">Share these with the student/parent</p>
+              </div>
+              <button 
+                onClick={() => setShowCredentialsModal(false)} 
+                className="text-slate-400 hover:text-slate-600 rounded-full w-10 h-10 p-0 flex items-center justify-center bg-slate-50 hover:bg-slate-100"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="p-8 space-y-6">
+              <div className="p-6 bg-green-50 rounded-2xl border border-green-200">
+                <p className="text-sm font-medium text-green-800 mb-4">Admission has been approved! Share the credentials below:</p>
+                
+                <div className="space-y-4">
+                  {credentials.admissionNo && (
+                    <div>
+                      <label className="text-xs font-black uppercase tracking-widest text-green-900">Admission Number</label>
+                      <div className="mt-2 p-4 bg-white rounded-lg border border-green-300 font-mono text-sm font-bold text-green-900 break-all">
+                        {credentials.admissionNo}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div>
+                    <label className="text-xs font-black uppercase tracking-widest text-green-900">Email Address (Username)</label>
+                    <div className="mt-2 p-4 bg-white rounded-lg border border-green-300 font-mono text-sm font-bold text-green-900 break-all">
+                      {credentials.email}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="text-xs font-black uppercase tracking-widest text-green-900">Temporary Password</label>
+                    <div className="mt-2 p-4 bg-white rounded-lg border border-green-300 font-mono text-sm font-bold text-green-900 break-all">
+                      {credentials.password}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {credentials.sharedEmailConflict && (
+                <div className="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                  <p className="text-xs font-semibold text-amber-900">This contact email is already used in another portal. For parent access, open the Parent portal and use the same contact email or the admission number above.</p>
+                </div>
+              )}
+
+              <div className="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                <p className="text-xs font-semibold text-amber-900">⚠️ Important: Parent/Student must change password on first login. These credentials will be sent via email.</p>
+              </div>
+
+              <button
+                onClick={() => {
+                  // Copy to clipboard
+                  const text = `Admission Number: ${credentials.admissionNo || 'N/A'}\nEmail: ${credentials.email}\nPassword: ${credentials.password}`;
+                  navigator.clipboard.writeText(text);
+                  toast.success('Credentials copied to clipboard');
+                }}
+                className="w-full px-6 py-3 bg-brand-navy hover:bg-slate-800 text-white font-bold rounded-xl transition-colors"
+              >
+                Copy to Clipboard
+              </button>
+
+              <button
+                onClick={() => setShowCredentialsModal(false)}
+                className="w-full px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold rounded-xl transition-colors"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>

@@ -2,19 +2,23 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   User, Lock, Eye, EyeOff, Calendar, 
-  ShieldCheck, GraduationCap, CheckCircle2
+  ShieldCheck, GraduationCap, CheckCircle2, AlertCircle
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import Button from '../../components/ui/Button';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
    const navigate = useNavigate();
    const login = useAuthStore((state) => state.login);
+   const error = useAuthStore((state) => state.error);
+   const clearError = useAuthStore((state) => state.clearError);
    
    const [userType, setUserType] = useState<'admin' | 'parent' | 'teacher'>('admin');
    const [isFirstTime, setIsFirstTime] = useState(false);
    const [showPassword, setShowPassword] = useState(false);
    const [loading, setLoading] = useState(false);
+   const [localError, setLocalError] = useState<string | null>(null);
    
    const [formData, setFormData] = useState({
       id: '',
@@ -31,14 +35,46 @@ const LoginPage = () => {
          ...prev, 
          [name]: type === 'checkbox' ? checked : value 
       }));
+      // Clear error when user starts typing
+      if (localError || error) {
+         setLocalError(null);
+         clearError();
+      }
    };
 
    const isParentLogin = userType === 'parent';
-   const identifierLabel = userType === 'admin' ? 'Admin Email' : isParentLogin ? 'Admission Number' : 'Employee ID';
-   const identifierPlaceholder = userType === 'admin' ? 'superadmin@gmail.com' : isParentLogin ? 'SCA-2026-XXXX' : 'EMP-XXX-XXX';
+   const identifierLabel = userType === 'admin'
+      ? 'Admin Email'
+      : isParentLogin
+        ? 'Email or Admission Number'
+        : 'Email or Employee ID';
+   const identifierPlaceholder = userType === 'admin'
+      ? 'superadmin@gmail.com'
+      : isParentLogin
+        ? 'parent@email.com or STM-2026-12345'
+        : 'teacher@email.com or EMP-1234';
 
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
+      // Validation
+      if (isFirstTime) {
+         if (!formData.id || !formData.dob || !formData.newPassword || !formData.confirmPassword) {
+            setLocalError('Please enter all required fields: email/ID, DOB, new password, and confirm password');
+            return;
+         }
+         if (formData.newPassword !== formData.confirmPassword) {
+            setLocalError('Passwords do not match');
+            return;
+         }
+      } else {
+         if (!formData.id || !formData.password) {
+            setLocalError('Please enter both email/ID and password');
+            return;
+         }
+      }
+
+      setLocalError(null);
+      clearError();
       setLoading(true);
       
       try {
@@ -51,22 +87,33 @@ const LoginPage = () => {
                newPassword: formData.newPassword
             });
             if (success) {
-               alert('Account setup successful! You can now login.');
+               toast.success('Account setup successful! You can now login.');
                setIsFirstTime(false);
+               setFormData(prev => ({ ...prev, newPassword: '', confirmPassword: '', password: '' }));
+            } else {
+               const errorMsg = useAuthStore.getState().error || 'Account setup failed. Please check your details.';
+               setLocalError(errorMsg);
+               toast.error(errorMsg);
             }
          } else {
             success = await login(formData.id, formData.password, userType);
             if (success) {
+               toast.success('Login successful! Redirecting...');
                const loggedInUser = useAuthStore.getState().user;
-               navigate(loggedInUser ? `/${loggedInUser.role}/dashboard` : '/login', { replace: true });
+               setTimeout(() => {
+                  navigate(loggedInUser ? `/${loggedInUser.role}/dashboard` : '/login', { replace: true });
+               }, 500);
+            } else {
+               const errorMsg = useAuthStore.getState().error || 'Login failed. Please check your credentials.';
+               setLocalError(errorMsg);
+               toast.error(errorMsg);
             }
-         }
-         
-         if (!success) {
-            alert('Action failed. Please check your credentials.');
          }
       } catch (error) {
          console.error('Login error:', error);
+         const errorMsg = error instanceof Error ? error.message : 'An unexpected error occurred';
+         setLocalError(errorMsg);
+         toast.error(errorMsg);
       } finally {
          setLoading(false);
       }
@@ -94,7 +141,7 @@ const LoginPage = () => {
                   <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-xl rotate-3 group-hover:rotate-0 transition-transform">
                      <GraduationCap className="text-brand-navy w-6 h-6" />
                   </div>
-                  <h1 className="text-xl font-black text-white tracking-tighter italic uppercase group-hover:text-brand-crimson transition-colors">Sri Chaitanya</h1>
+                  <h1 className="text-xl font-black text-white tracking-tighter italic uppercase group-hover:text-brand-crimson transition-colors">St. Martins Group of Schools</h1>
                </div>
 
                <div className="space-y-4 max-w-md">
@@ -131,7 +178,7 @@ const LoginPage = () => {
                   onClick={() => navigate('/')}
                   className="lg:hidden text-center space-y-1 mb-4 cursor-pointer"
                >
-                  <h1 className="text-3xl font-black text-brand-navy tracking-tighter italic uppercase underline decoration-brand-crimson">Sri Chaitanya</h1>
+                  <h1 className="text-3xl font-black text-brand-navy tracking-tighter italic uppercase underline decoration-brand-crimson">St. Martins Group of Schools</h1>
                </div>
 
                {/* Mode Switcher Overlay */}
@@ -167,6 +214,23 @@ const LoginPage = () => {
                      Sign in to continue to portal.
                   </p>
                </div>
+
+               {/* Error Message Display */}
+               {(localError || error) && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-xl flex gap-3 items-start animate-in slide-in-from-top duration-200">
+                     <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                     <div className="flex-1">
+                        <p className="text-sm font-bold text-red-800">{localError || error}</p>
+                        <p className="text-xs text-red-700 mt-1">
+                           {userType === 'admin' && 'Try: superadmin@gmail.com / password123'}
+                           {userType === 'teacher' && 'Use the email or employee ID shared during approval'}
+                           {userType === 'parent' && 'Use the email or admission number shared during approval'}
+                        </p>
+                     </div>
+                  </div>
+               )}
+
+
 
                <form onSubmit={handleSubmit} className="space-y-3.5">
                   {/* First Time Checkbox - ONLY for Parents */}
@@ -261,7 +325,6 @@ const LoginPage = () => {
                      <input type="checkbox" className="w-3.5 h-3.5 accent-brand-navy rounded" checked={formData.rememberMe} onChange={(e) => setFormData(p => ({...p, rememberMe: e.target.checked}))} />
                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Remember device</span>
                   </div>
-
                   <div className="pt-2">
                      <Button 
                         type="submit" disabled={loading}
@@ -277,7 +340,7 @@ const LoginPage = () => {
 
                <div className="text-center pt-2">
                   <p className="text-[9px] font-bold text-slate-300 uppercase tracking-[0.3em]">
-                     &copy; 2026 Sri Chaitanya Portal
+                     &copy; 2026 St. Martins Group of Schools Portal
                   </p>
                </div>
             </div>

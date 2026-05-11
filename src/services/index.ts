@@ -70,3 +70,14 @@ export const admissionService = {
   reject: (id: string, body?: { reason?: string }) => api.post(`/admission/${id}/reject`, body || {}),
   addStudentDirect: (data: Record<string, any>) => api.post('/admission/add-student', data),
 };
+
+export const contactService = {
+  submit: (data: Record<string, any>) => api.post('/contact/submit', data),
+};
+
+export const teacherRequestService = {
+  submit: (data: any) => api.post('/teacher-requests/submit', data),
+  getAll: () => api.get('/teacher-requests/all'),
+  approve: (id: string) => api.put(`/teacher-requests/approve/${id}`),
+  reject: (id: string) => api.put(`/teacher-requests/reject/${id}`),
+};

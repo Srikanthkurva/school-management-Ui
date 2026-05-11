@@ -654,7 +654,7 @@ const StudentsPage = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="absolute inset-0" onClick={() => setShowAddModal(false)} />
           <div className="relative z-10 w-full max-w-2xl bg-white dark:bg-gray-900 shadow-2xl rounded-2xl border border-gray-200 dark:border-gray-700">
-            <div className="border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+            <div className="border-b border-gray-200 dark:border-gray-700 px-4 py-2">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">Add Student</h2>
             </div>
             <form onSubmit={handleSaveNewStudent} className="p-6 space-y-4">
